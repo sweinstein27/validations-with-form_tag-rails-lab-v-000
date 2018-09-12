@@ -1,25 +1,25 @@
-class AuthorsController < ApplicationController
+class PostsController < ApplicationController
   def show
-    @author = Author.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
-  def new
-    @author = Author.new
+  def edit
+    @post = Post.find(params[:id])
   end
 
-  def create
-    @author = Author.new(author_params)
+  def update
+    @post = Post.find(params[:id])
 
-    if @author.save
-      redirect_to author_path(@author)
+    if @post.update(post_params)
+      redirect_to post_path(@post)
     else
-      render :new
+      render :edit
     end
   end
 
   private
 
-  def author_params
-    params.permit(:name, :email, :phone_number)
+  def post_params
+    params.permit(:title, :category, :content)
   end
 end
